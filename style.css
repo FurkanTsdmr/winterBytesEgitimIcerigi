@@ -1,0 +1,1165 @@
+/* 
+EĞİTMEN: "Bu style.css dosyası. 
+HTML'imizin TÜM görünümünü burada kontrol edeceğiz."
+*/
+
+/* ============================================
+   CSS RESET - Tüm tarayıcıları sıfırla
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*
+    EĞİTMEN: "BU 3 KURAL HER PROJEDE OLMALI:
+    1. margin: 0; -> Tüm elementlerin dış boşluklarını sıfırla
+    2. padding: 0; -> Tüm elementlerin iç boşluklarını sıfırla
+    3. box-sizing: border-box; -> EN ÖNEMLİ KURAL!
+    
+    BOX-SIZING: BORDER-BOX NEDEN ÖNEMLİ?
+    Normalde: width: 300px + padding: 20px = 340px toplam genişlik
+    Border-box ile: width: 300px içinde padding ve border dahil
+    Yani toplam genişlik 300px kalır, padding içeride kalır.
+    Responsive tasarım için HAYATİ önemdedir!"
+    */
+}
+
+/* ============================================
+   ROOT DEĞİŞKENLER - CSS Variables
+   ============================================ */
+:root {
+    /*
+    EĞİTMEN: "CSS Variables (CSS Değişkenleri) kullanıyoruz.
+    NEDEN?: 
+    1. Renkleri tek yerden kontrol ederiz
+    2. Değiştirmek kolay olur
+    3. Tutarlılık sağlar
+    4. Dark/Light theme yapmak kolaylaşır"
+    */
+    
+    /* ANA RENKLER */
+    --primary-color: #667eea;          /* Ana mavi */
+    --primary-dark: #5a67d8;          /* Koyu mavi */
+    --secondary-color: #764ba2;       /* Mor */
+    --accent-color: #00ff9d;          /* Neon yeşil */
+    --accent-light: #00d4ff;          /* Açık mavi */
+    
+    /* NÖTR RENKLER */
+    --dark-color: #1a202c;            /* Çok koyu gri */
+    --light-color: #f7fafc;           /* Çok açık gri */
+    --text-color: #2d3748;            /* Yazı rengi (koyu gri) */
+    --text-light: #718096;            /* Açık yazı rengi */
+    
+    /* BOYUTLAR */
+    --container-width: 1200px;        /* Maksimum içerik genişliği */
+    --header-height: 80px;            /* Header yüksekliği */
+    --border-radius: 10px;            /* Standart köşe yuvarlaklığı */
+    --border-radius-sm: 5px;          /* Küçük köşe yuvarlaklığı */
+    
+    /* GÖLGELER */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+    
+    /* GEÇİŞLER */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* ============================================
+   GENEL STİLLER
+   ============================================ */
+html {
+    scroll-behavior: smooth;
+    /*
+    EĞİTMEN: "scroll-behavior: smooth; 
+    Sayfa içi linklere tıklayınca yumuşak kaydırma efekti verir.
+    Kullanıcı deneyimini artırır."
+    */
+}
+
+body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /*
+    EĞİTMEN: "FONT STACK (Font Yığını):
+    Tarayıcıya font seçenekleri veriyoruz.
+    1. Poppins (Google Fonts'tan yükledik)
+    2. Segoe UI (Windows)
+    3. Tahoma (Windows/Mac)
+    4. Geneva (Mac)
+    5. Verdana (Her yerde var)
+    6. sans-serif (Son çare, sistem sans-serif fontu)
+    
+    NEDEN FONT STACK?: 
+    Eğer kullanıcının bilgisayarında Poppins yoksa, 
+    tarayıcı bir sonrakini dener."
+    */
+    
+    font-size: 16px;                  /* Temel font boyutu */
+    line-height: 1.6;                 /* Satır yüksekliği (okunabilirlik) */
+    color: var(--text-color);         /* Yazı rengini değişkenden al */
+    background-color: var(--light-color); /* Arkaplan rengi */
+    overflow-x: hidden;               /* Yatay scroll'u engelle */
+}
+
+/* ============================================
+   CONTAINER - İçeriği sınırla ve ortala
+   ============================================ */
+.container {
+    width: 100%;                      /* %100 genişlik */
+    max-width: var(--container-width); /* Maksimum 1200px */
+    margin: 0 auto;                   /* Üst-Alt: 0, Sağ-Sol: auto (ortala) */
+    padding: 0 20px;                  /* Yanlardan 20px boşluk */
+    
+    /*
+    EĞİTMEN: "MARGIN: 0 AUTO NASIL ÇALIŞIR?
+    Üst ve alt margin 0, sağ ve sol margin auto.
+    Tarayıcı otomatik olarak eşit boşluk verir ve elementi ortalar.
+    
+    Bu yapı responsive tasarımın TEMELİDİR:
+    1. width: 100% -> Mobilde ekran genişliğini kullan
+    2. max-width: 1200px -> Büyük ekranlarda maksimum 1200px
+    3. padding: 0 20px -> Mobilde yanlardan 20px boşluk"
+    */
+}
+
+/* ============================================
+   HEADER - Sayfanın en üst kısmı
+   ============================================ */
+.site-header {
+    position: fixed;                  /* Sabit pozisyon (sayfa kaydıkça sabit kal) */
+    top: 0;                           /* Üstten 0 */
+    left: 0;                          /* Soldan 0 */
+    right: 0;                         /* Sağdan 0 */
+    height: var(--header-height);     /* 80px yükseklik */
+    background-color: white;          /* Beyaz arkaplan */
+    box-shadow: var(--shadow-md);     /* Alt gölge */
+    z-index: 1000;                    /* Diğer elementlerin üstünde olsun */
+    /*
+    EĞİTMEN: "Z-INDEX NEDİR?: 
+    Elementlerin üst üste gelme sırasını belirler.
+    Yüksek değer daha üstte olur.
+    1000 vermemizin sebebi: Header her zaman en üstte olsun."
+    */
+}
+
+.site-header .container {
+    display: flex;                    /* Flex container yap */
+    justify-content: space-between;   /* İçindekileri yatayda eşit dağıt */
+    align-items: center;              /* Dikeyde ortala */
+    height: 100%;                     /* Container yüksekliği header kadar */
+}
+
+/* LOGO ALANI */
+.logo {
+    display: flex;                    /* Flex container */
+    align-items: center;              /* Dikeyde ortala */
+    gap: 10px;                        /* Elemanlar arası 10px boşluk */
+    /*
+    EĞİTMEN: "GAP NEDİR?: 
+    Flexbox ve Grid'de elemanlar arası boşluk vermek için.
+    margin kullanmaktan daha temiz ve kolay."
+    */
+}
+
+.logo i {
+    font-size: 2rem;                  /* Icon boyutu: 2rem (32px) */
+    color: var(--primary-color);      /* Mavi renk */
+}
+
+.logo h1 {
+    font-size: 1.5rem;                /* 1.5rem (24px) */
+    font-weight: 700;                 /* Kalın yazı */
+    color: var(--dark-color);         /* Koyu renk */
+}
+
+.logo span {
+    color: var(--primary-color);      /* Mavi renk */
+    font-weight: 300;                 /* İnce yazı */
+}
+
+/* ANA NAVİGASYON */
+.main-nav ul {
+    display: flex;                    /* Flex container */
+    list-style: none;                 /* Liste noktalarını kaldır */
+    gap: 30px;                        /* Menü öğeleri arası 30px boşluk */
+}
+
+.nav-link {
+    text-decoration: none;            /* Alt çizgiyi kaldır */
+    color: var(--text-color);         /* Yazı rengi */
+    font-weight: 600;                 /* Kalın yazı */
+    font-size: 1rem;                  /* 16px */
+    padding: 8px 0;                   /* Üst-Alt: 8px, Sağ-Sol: 0 */
+    position: relative;               /* Alt çizgi için pozisyon */
+    transition: color var(--transition-fast); /* Renk değişimi 0.2s */
+    
+    /*
+    EĞİTMEN: "TRANSITION NEDİR?: 
+    CSS değişikliklerini animasyonlu yapar.
+    Burada sadece color property'si 0.2 saniyede değişsin dedik."
+    */
+}
+
+.nav-link:hover {
+    color: var(--primary-color);      /* Hover olunca mavi olsun */
+}
+
+/* Aktif link için alt çizgi efekti */
+.nav-link::after {
+    content: '';                      /* Boş içerik */
+    position: absolute;               /* Pozisyon absolute */
+    bottom: 0;                        /* Alt kısımda */
+    left: 0;                          /* Soldan başla */
+    width: 0;                         /* Başlangıçta genişlik 0 */
+    height: 2px;                      /* 2px kalınlık */
+    background-color: var(--primary-color); /* Mavi renk */
+    transition: width var(--transition-normal); /* Genişlik 0.3s'de değişsin */
+}
+
+.nav-link:hover::after {
+    width: 100%;                      /* Hover olunca tam genişlik */
+}
+
+/* MOBİL MENÜ BUTONU */
+.mobile-menu-btn {
+    display: none;                    /* Başlangıçta gizli (masaüstünde) */
+    background: none;                 /* Arkaplan yok */
+    border: none;                     /* Border yok */
+    font-size: 1.5rem;                /* Icon boyutu */
+    color: var(--dark-color);         /* Icon rengi */
+    cursor: pointer;                  /* El işareti çıksın */
+    padding: 10px;                    /* Tıklama alanını büyüt */
+}
+
+/* ============================================
+   HERO BÖLÜMÜ - Ana tanıtım alanı
+   ============================================ */
+.hero {
+    padding: 100px 0 60px;            /* Üst:100px, Alt:60px, Yan:0 */
+    margin-top: var(--header-height); /* Header yüksekliği kadar boşluk */
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    /* 
+    EĞİTMEN: "LINEAR-GRADIENT NEDİR?: 
+    Çizgisel renk geçişi yapar.
+    135deg: 135 derece açı (sol üstten sağ alta)
+    var(--primary-color): Başlangıç rengi (mavi)
+    var(--secondary-color): Bitiş rengi (mor)"
+    */
+    
+    color: white;                     /* Beyaz yazı */
+}
+
+.hero .container {
+    display: grid;                    /* Grid layout kullan */
+    grid-template-columns: 1fr 1fr;   /* İki eşit kolon */
+    gap: 60px;                        /* Kolonlar arası 60px boşluk */
+    align-items: center;              /* Dikeyde ortala */
+}
+
+.hero-title {
+    font-size: 3rem;                  /* 3rem (48px) */
+    font-weight: 700;                 /* Çok kalın */
+    line-height: 1.2;                 /* Satır yüksekliği */
+    margin-bottom: 20px;              /* Altından 20px boşluk */
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;                /* 1.5rem (24px) */
+    font-weight: 300;                 /* İnce yazı */
+    margin-bottom: 15px;              /* Altından 15px boşluk */
+    opacity: 0.9;                     %90 saydamlık */
+}
+
+.hero-description {
+    font-size: 1.1rem;                /* 1.1rem (17.6px) */
+    margin-bottom: 30px;              /* Altından 30px boşluk */
+    line-height: 1.7;                 /* Daha fazla satır aralığı */
+}
+
+/* BUTON STİLLERİ */
+.btn {
+    display: inline-block;            /* Inline-block (padding çalışsın) */
+    padding: 14px 28px;               /* İçeriden: Dikey 14px, Yatay 28px */
+    border: none;                     /* Border yok */
+    border-radius: var(--border-radius-sm); /* 5px köşe yuvarlaklığı */
+    font-size: 1rem;                  /* 16px */
+    font-weight: 600;                 /* Kalın yazı */
+    cursor: pointer;                  /* El işareti çıksın */
+    transition: all var(--transition-normal); /* Tüm değişiklikler 0.3s'de */
+    text-decoration: none;            /* Alt çizgi yok */
+    text-align: center;               /* Yazıyı ortala */
+}
+
+.btn-primary {
+    background-color: var(--accent-color); /* Neon yeşil arkaplan */
+    color: var(--dark-color);         /* Koyu yazı rengi */
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);      /* 3px yukarı kaydır */
+    box-shadow: var(--shadow-lg);     /* Gölge efekti */
+    background-color: var(--accent-light); /* Açık mavi */
+}
+
+.btn-secondary {
+    background-color: transparent;    /* Saydam arkaplan */
+    color: white;                     /* Beyaz yazı */
+    border: 2px solid white;          /* Beyaz border */
+}
+
+.btn-secondary:hover {
+    background-color: white;          /* Beyaz arkaplan */
+    color: var(--primary-color);      /* Mavi yazı */
+}
+
+.hero-buttons {
+    display: flex;                    /* Flex container */
+    gap: 15px;                        /* Butonlar arası 15px boşluk */
+    flex-wrap: wrap;                  /* Taşarsa alt satıra geç */
+}
+
+/* HERO RESİM */
+.hero-image img {
+    width: 100%;                      /* %100 genişlik */
+    height: auto;                     /* Oranları koru */
+    border-radius: var(--border-radius); /* 10px köşe yuvarlaklığı */
+    box-shadow: var(--shadow-xl);     /* Büyük gölge */
+}
+
+/* ============================================
+   DERS BÖLÜMLERİ
+   ============================================ */
+.lesson-section {
+    padding: 80px 0;                  /* Üst-Alt: 80px, Yan: 0 */
+    background-color: white;          /* Beyaz arkaplan */
+}
+
+.lesson-section:nth-child(even) {
+    background-color: var(--light-color); /* Çift bölümlerde açık gri */
+}
+
+.section-header {
+    text-align: center;               /* Ortala */
+    margin-bottom: 50px;              /* Altından 50px boşluk */
+}
+
+.section-title {
+    font-size: 2.5rem;                /* 2.5rem (40px) */
+    color: var(--dark-color);         /* Koyu renk */
+    margin-bottom: 15px;              /* Altından 15px boşluk */
+    display: flex;                    /* Flex container */
+    justify-content: center;          /* Yatayda ortala */
+    align-items: center;              /* Dikeyde ortala */
+    gap: 15px;                        /* Icon ile yazı arası 15px */
+}
+
+.section-title i {
+    font-size: 2.2rem;                /* Icon boyutu */
+}
+
+.section-subtitle {
+    font-size: 1.2rem;                /* 1.2rem (19.2px) */
+    color: var(--text-light);         /* Açık gri yazı */
+    max-width: 600px;                 /* Maksimum 600px genişlik */
+    margin: 0 auto;                   /* Ortala */
+}
+
+/* DERS İÇERİK DÜZENİ */
+.lesson-content {
+    display: grid;                    /* Grid layout */
+    grid-template-columns: 1fr 1fr;   /* İki eşit kolon */
+    gap: 40px;                        /* Kolonlar arası 40px */
+}
+
+/* TEORİ KUTUSU */
+.theory-box {
+    background-color: white;          /* Beyaz arkaplan */
+    padding: 30px;                    /* İçeriden 30px boşluk */
+    border-radius: var(--border-radius); /* 10px köşe yuvarlaklığı */
+    box-shadow: var(--shadow-md);     /* Orta gölge */
+    border-left: 4px solid var(--primary-color); /* Sol tarafta mavi çizgi */
+}
+
+.theory-box h3 {
+    color: var(--primary-color);      /* Mavi renk */
+    margin-bottom: 20px;              /* Altından 20px boşluk */
+    font-size: 1.5rem;                /* 1.5rem (24px) */
+}
+
+.theory-box ul {
+    list-style-position: inside;      • Noktalar içeride */
+    margin-top: 15px;                 /* Üstünden 15px boşluk */
+}
+
+.theory-box li {
+    margin-bottom: 10px;              /* Her madde arası 10px */
+    color: var(--text-color);         /* Yazı rengi */
+}
+
+.theory-box strong {
+    color: var(--primary-color);      /* Kalın yazılar mavi */
+}
+
+/* KOD ÖRNEĞİ */
+.code-example {
+    background-color: #1a1a2e;        /* Çok koyu mavi arkaplan */
+    border-radius: var(--border-radius); /* 10px köşe yuvarlaklığı */
+    overflow: hidden;                 /* Taşanları gizle */
+}
+
+.code-header {
+    display: flex;                    /* Flex container */
+    justify-content: space-between;   /* İçindekileri yatayda dağıt */
+    align-items: center;              /* Dikeyde ortala */
+    padding: 15px 20px;               /* İçeriden boşluk */
+    background-color: #2d3748;        /* Koyu gri arkaplan */
+    border-bottom: 1px solid #4a5568; /* Alt çizgi */
+}
+
+.code-language {
+    color: var(--accent-color);       /* Neon yeşil */
+    font-weight: 600;                 /* Kalın yazı */
+    font-size: 0.9rem;                /* Küçük yazı */
+    text-transform: uppercase;        /* BÜYÜK HARF */
+    letter-spacing: 1px;              /* Harfler arası boşluk */
+}
+
+.copy-code-btn {
+    background-color: rgba(0, 255, 157, 0.1); /* %10 opacity yeşil */
+    color: var(--accent-color);       /* Yeşil yazı */
+    border: 1px solid var(--accent-color); /* Yeşil border */
+    border-radius: var(--border-radius-sm); /* 5px köşe yuvarlaklığı */
+    padding: 8px 16px;                /* İçeriden boşluk */
+    font-size: 0.9rem;                /* Küçük yazı */
+    cursor: pointer;                  /* El işareti */
+    transition: all var(--transition-fast); /* Hızlı geçiş */
+    display: flex;                    /* Flex container */
+    align-items: center;              /* Dikeyde ortala */
+    gap: 8px;                         /* Icon ile yazı arası */
+}
+
+.copy-code-btn:hover {
+    background-color: var(--accent-color); /* Yeşil arkaplan */
+    color: var(--dark-color);         /* Koyu yazı */
+}
+
+.code-block {
+    padding: 25px;                    /* İçeriden 25px boşluk */
+    overflow-x: auto;                 /* Yatayda taşarsa scroll */
+    font-family: 'Courier New', monospace; /* Kod fontu */
+    font-size: 0.9rem;                /* Küçük yazı */
+    line-height: 1.5;                 /* Satır yüksekliği */
+}
+
+.code-block code {
+    color: #f8f8f2;                   /* Açık gri yazı */
+    display: block;                   /* Block element yap */
+}
+
+/* KOD RENKLENDİRME (syntax highlighting) */
+.code-block .tag { color: #569cd6; }          /* HTML tag'leri: Mavi */
+.code-block .attr { color: #9cdcfe; }         /* Attribute'lar: Açık mavi */
+.code-block .value { color: #ce9178; }        /* Value'lar: Turuncu */
+.code-block .comment { color: #6a9955; }      /* Yorumlar: Yeşil */
+.code-block .keyword { color: #569cd6; }      /* JS keyword'leri: Mavi */
+.code-block .function { color: #dcdcaa; }     /* Fonksiyonlar: Sarı */
+.code-block .string { color: #ce9178; }       /* String'ler: Turuncu */
+.code-block .number { color: #b5cea8; }       /* Number'lar: Açık yeşil */
+
+/* PRATİK ALANI */
+.practice-box {
+    grid-column: 1 / -1;              /* İki kolonu da kaplasın */
+    background-color: white;          /* Beyaz arkaplan */
+    padding: 30px;                    /* İçeriden 30px boşluk */
+    border-radius: var(--border-radius); /* 10px köşe yuvarlaklığı */
+    box-shadow: var(--shadow-md);     /* Orta gölge */
+    margin-top: 20px;                 /* Üstünden 20px boşluk */
+}
+
+.practice-box h3 {
+    color: var(--secondary-color);    /* Mor renk */
+    margin-bottom: 25px;              /* Altından 25px boşluk */
+    font-size: 1.3rem;                /* 1.3rem (20.8px) */
+    display: flex;                    /* Flex container */
+    align-items: center;              /* Dikeyde ortala */
+    gap: 10px;                        /* Icon ile yazı arası */
+}
+
+/* HTML EDITOR */
+.practice-area {
+    display: grid;                    /* Grid layout */
+    grid-template-columns: 1fr 1fr;   /* İki eşit kolon */
+    gap: 30px;                        /* Kolonlar arası 30px */
+    margin-bottom: 20px;              /* Altından 20px boşluk */
+}
+
+.code-input {
+    width: 100%;                      /* %100 genişlik */
+    height: 200px;                    /* 200px yükseklik */
+    padding: 15px;                    /* İçeriden 15px boşluk */
+    font-family: 'Courier New', monospace; /* Kod fontu */
+    font-size: 0.9rem;                /* Küçük yazı */
+    border: 2px solid #e2e8f0;        /* Açık gri border */
+    border-radius: var(--border-radius-sm); /* 5px köşe yuvarlaklığı */
+    resize: vertical;                 /* Sadece dikeyde boyutlandır */
+    background-color: #f8f9fa;        /* Açık gri arkaplan */
+}
+
+.code-input:focus {
+    outline: none;                    /* Varsayılan outline'ı kaldır */
+    border-color: var(--primary-color); /* Mavi border */
+}
+
+.preview-output {
+    height: 200px;                    /* 200px yükseklik */
+    padding: 15px;                    /* İçeriden 15px boşluk */
+    border: 2px solid #e2e8f0;        /* Açık gri border */
+    border-radius: var(--border-radius-sm); /* 5px köşe yuvarlaklığı */
+    background-color: white;          /* Beyaz arkaplan */
+    overflow: auto;                   /* Taşarsa scroll */
+}
+
+/* CSS DEMO KONTROLLERİ */
+.css-demo {
+    display: grid;                    /* Grid layout */
+    grid-template-columns: 300px 1fr; /* Sabit genişlik + esnek */
+    gap: 30px;                        /* Aralarında 30px boşluk */
+    margin-bottom: 20px;              /* Altından 20px boşluk */
+}
+
+.demo-box {
+    width: 100%;                      /* %100 genişlik */
+    height: 200px;                    /* 200px yükseklik */
+    display: flex;                    /* Flex container */
+    align-items: center;              /* Dikeyde ortala */
+    justify-content: center;          /* Yatayda ortala */
+    background-color: var(--primary-color); /* Mavi arkaplan */
+    color: white;                     /* Beyaz yazı */
+    border-radius: 10px;              /* 10px köşe yuvarlaklığı */
+    padding: 20px;                    /* İçeriden 20px boşluk */
+    transition: all var(--transition-normal); /* Tüm değişiklikler 0.3s'de */
+    text-align: center;               /* Yazıyı ortala */
+    font-weight: 600;                 /* Kalın yazı */
+}
+
+.control-group {
+    margin-bottom: 20px;              /* Her kontrol grubu arası 20px */
+}
+
+.control-group label {
+    display: block;                   /* Block element yap */
+    margin-bottom: 8px;               /* Altından 8px boşluk */
+    font-weight: 600;                 /* Kalın yazı */
+    color: var(--text-color);         /* Yazı rengi */
+}
+
+.control-group input[type="color"] {
+    width: 100%;                      /* %100 genişlik */
+    height: 40px;                     /* 40px yükseklik */
+    border: 2px solid #e2e8f0;        /* Açık gri border */
+    border-radius: var(--border-radius-sm); /* 5px köşe yuvarlaklığı */
+    cursor: pointer;                  /* El işareti */
+}
+
+.control-group input[type="range"] {
+    width: calc(100% - 50px);         /* Genişlik (değer göstergesi için yer bırak) */
+    margin-right: 10px;               /* Sağından 10px boşluk */
+}
+
+/* JAVASCRIPT OYUNU */
+.js-game {
+    background-color: #f8f9fa;        /* Açık gri arkaplan */
+    padding: 25px;                    /* İçeriden 25px boşluk */
+    border-radius: var(--border-radius); /* 10px köşe yuvarlaklığı */
+    border: 2px solid #e2e8f0;        /* Açık gri border */
+}
+
+.game-info {
+    margin-bottom: 25px;              /* Altından 25px boşluk */
+    padding-bottom: 20px;             /* Altından içeriden 20px */
+    border-bottom: 1px solid #e2e8f0; /* Alt çizgi */
+}
+
+#gameMessage {
+    font-weight: 600;                 /* Kalın yazı */
+    color: var(--primary-color);      /* Mavi renk */
+    margin: 10px 0;                   /* Üst-Alt: 10px, Yan: 0 */
+    min-height: 24px;                 /* Minimum yükseklik */
+}
+
+.game-controls {
+    display: flex;                    /* Flex container */
+    gap: 15px;                        /* Elemanlar arası 15px */
+    margin-bottom: 25px;              /* Altından 25px boşluk */
+    flex-wrap: wrap;                  /* Taşarsa alt satıra geç */
+}
+
+.game-controls input {
+    flex: 1;                          /* Esnek genişlik */
+    min-width: 200px;                 /* Minimum 200px genişlik */
+    padding: 12px 15px;               /* İçeriden boşluk */
+    border: 2px solid #e2e8f0;        /* Açık gri border */
+    border-radius: var(--border-radius-sm); /* 5px köşe yuvarlaklığı */
+    font-size: 1rem;                  /* 16px */
+}
+
+.game-controls input:focus {
+    outline: none;                    /* Varsayılan outline'ı kaldır */
+    border-color: var(--primary-color); /* Mavi border */
+}
+
+.btn-guess {
+    background-color: var(--accent-color); /* Yeşil arkaplan */
+    color: var(--dark-color);         /* Koyu yazı */
+}
+
+.btn-new-game {
+    background-color: var(--primary-color); /* Mavi arkaplan */
+    color: white;                     /* Beyaz yazı */
+}
+
+.game-history {
+    background-color: white;          /* Beyaz arkaplan */
+    padding: 20px;                    /* İçeriden 20px boşluk */
+    border-radius: var(--border-radius-sm); /* 5px köşe yuvarlaklığı */
+    max-height: 200px;                /* Maksimum 200px yükseklik */
+    overflow-y: auto;                 /* Dikeyde taşarsa scroll */
+}
+
+/* ============================================
+   PROJE BÖLÜMÜ
+   ============================================ */
+.project-container {
+    display: grid;                    /* Grid layout */
+    gap: 50px;                        /* Elemanlar arası 50px boşluk */
+}
+
+.project-description {
+    background-color: white;          /* Beyaz arkaplan */
+    padding: 30px;                    /* İçeriden 30px boşluk */
+    border-radius: var(--border-radius); /* 10px köşe yuvarlaklığı */
+    box-shadow: var(--shadow-md);     /* Orta gölge */
+}
+
+.features-list {
+    margin-top: 25px;                 /* Üstünden 25px boşluk */
+}
+
+.feature {
+    display: flex;                    /* Flex container */
+    align-items: center;              /* Dikeyde ortala */
+    gap: 15px;                        /* Icon ile yazı arası */
+    margin-bottom: 15px;              /* Her feature arası 15px */
+    color: var(--text-color);         /* Yazı rengi */
+}
+
+.feature i {
+    color: var(--accent-color);       /* Yeşil icon */
+}
+
+/* CANLI PROJE */
+.live-project {
+    background-color: white;          /* Beyaz arkaplan */
+    border-radius: var(--border-radius); /* 10px köşe yuvarlaklığı */
+    box-shadow: var(--shadow-lg);     /* Büyük gölge */
+    overflow: hidden;                 /* Taşanları gizle */
+}
+
+.project-header {
+    display: flex;                    /* Flex container */
+    justify-content: space-between;   /* İçindekileri yatayda dağıt */
+    align-items: center;              /* Dikeyde ortala */
+    padding: 20px 30px;               /* İçeriden boşluk */
+    background-color: var(--primary-color); /* Mavi arkaplan */
+    color: white;                     /* Beyaz yazı */
+}
+
+.project-header h3 {
+    font-size: 1.5rem;                /* 1.5rem (24px) */
+    display: flex;                    /* Flex container */
+    align-items: center;              /* Dikeyde ortala */
+    gap: 10px;                        /* Icon ile yazı arası */
+}
+
+.cart-info {
+    display: flex;                    /* Flex container */
+    gap: 20px;                        /* Elemanlar arası 20px */
+    font-weight: 600;                 /* Kalın yazı */
+}
+
+.project-content {
+    display: grid;                    /* Grid layout */
+    grid-template-columns: 2fr 1fr;   /* 2 birim ürünler, 1 birim sepet */
+    min-height: 500px;                /* Minimum 500px yükseklik */
+}
+
+/* ÜRÜNLER BÖLÜMÜ */
+.products-section {
+    padding: 30px;                    /* İçeriden 30px boşluk */
+    border-right: 1px solid #e2e8f0;  /* Sağda çizgi */
+}
+
+.products-section h4 {
+    color: var(--primary-color);      /* Mavi renk */
+    margin-bottom: 25px;              /* Altından 25px boşluk */
+    font-size: 1.2rem;                /* 1.2rem (19.2px) */
+}
+
+.products-grid {
+    display: grid;                    /* Grid layout */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px;                        /* Ürünler arası 20px */
+}
+
+.product-card {
+    background-color: var(--light-color); /* Açık gri arkaplan */
+    border-radius: var(--border-radius-sm); /* 5px köşe yuvarlaklığı */
+    padding: 20px;                    /* İçeriden 20px boşluk */
+    border: 2px solid transparent;    /* Saydam border */
+    transition: all var(--transition-fast); /* Hızlı geçiş */
+}
+
+.product-card:hover {
+    border-color: var(--primary-color); /* Mavi border */
+    transform: translateY(-5px);      /* 5px yukarı kaydır */
+    box-shadow: var(--shadow-md);     /* Orta gölge */
+}
+
+.product-card h5 {
+    color: var(--dark-color);         /* Koyu renk */
+    margin-bottom: 10px;              /* Altından 10px boşluk */
+}
+
+.product-price {
+    color: var(--accent-color);       /* Yeşil renk */
+    font-weight: 700;                 /* Çok kalın */
+    font-size: 1.2rem;                /* 1.2rem (19.2px) */
+    margin: 10px 0;                   /* Üst-Alt: 10px, Yan: 0 */
+}
+
+.add-to-cart-btn {
+    width: 100%;                      /* %100 genişlik */
+    background-color: var(--primary-color); /* Mavi arkaplan */
+    color: white;                     /* Beyaz yazı */
+    border: none;                     /* Border yok */
+    padding: 12px;                    /* İçeriden 12px boşluk */
+    border-radius: var(--border-radius-sm); /* 5px köşe yuvarlaklığı */
+    font-weight: 600;                 /* Kalın yazı */
+    cursor: pointer;                  /* El işareti */
+    transition: background-color var(--transition-fast); /* Arkaplan rengi değişimi */
+}
+
+.add-to-cart-btn:hover {
+    background-color: var(--primary-dark); /* Koyu mavi */
+}
+
+/* SEPET BÖLÜMÜ */
+.cart-section {
+    padding: 30px;                    /* İçeriden 30px boşluk */
+    background-color: #f8f9fa;        /* Açık gri arkaplan */
+}
+
+.cart-items {
+    min-height: 300px;                /* Minimum 300px yükseklik */
+    margin-bottom: 25px;              /* Altından 25px boşluk */
+}
+
+.empty-cart {
+    text-align: center;               /* Ortala */
+    color: var(--text-light);         /* Açık gri yazı */
+    padding: 60px 20px;               /* İçeriden boşluk */
+}
+
+.empty-cart i {
+    font-size: 3rem;                  /* Büyük icon */
+    margin-bottom: 20px;              /* Altından 20px boşluk */
+    opacity: 0.3;                     %30 saydamlık */
+}
+
+.cart-item {
+    display: flex;                    /* Flex container */
+    justify-content: space-between;   /* İçindekileri yatayda dağıt */
+    align-items: center;              /* Dikeyde ortala */
+    padding: 15px;                    /* İçeriden 15px boşluk */
+    background-color: white;          /* Beyaz arkaplan */
+    border-radius: var(--border-radius-sm); /* 5px köşe yuvarlaklığı */
+    margin-bottom: 10px;              /* Altından 10px boşluk */
+    border: 1px solid #e2e8f0;        /* Açık gri border */
+}
+
+.cart-summary {
+    background-color: white;          /* Beyaz arkaplan */
+    padding: 20px;                    /* İçeriden 20px boşluk */
+    border-radius: var(--border-radius-sm); /* 5px köşe yuvarlaklığı */
+    border: 1px solid #e2e8f0;        /* Açık gri border */
+}
+
+.summary-row {
+    display: flex;                    /* Flex container */
+    justify-content: space-between;   /* İçindekileri yatayda dağıt */
+    margin-bottom: 10px;              /* Her satır arası 10px */
+    color: var(--text-color);         /* Yazı rengi */
+}
+
+.summary-row.total {
+    font-weight: 700;                 /* Kalın yazı */
+    font-size: 1.2rem;                /* 1.2rem (19.2px) */
+    padding-top: 15px;                /* Üstten içeriden 15px */
+    border-top: 2px solid #e2e8f0;    /* Üstte çizgi */
+    margin-top: 15px;                 /* Üstünden 15px boşluk */
+    color: var(--primary-color);      /* Mavi renk */
+}
+
+.btn-checkout {
+    width: 100%;                      /* %100 genişlik */
+    margin-top: 15px;                 /* Üstünden 15px boşluk */
+    background-color: var(--accent-color); /* Yeşil arkaplan */
+    color: var(--dark-color);         /* Koyu yazı */
+}
+
+.btn-clear {
+    width: 100%;                      /* %100 genişlik */
+    margin-top: 10px;                 /* Üstünden 10px boşluk */
+    background-color: transparent;    /* Saydam arkaplan */
+    color: #e53e3e;                   /* Kırmızı yazı */
+    border: 2px solid #e53e3e;        /* Kırmızı border */
+}
+
+.btn-clear:hover {
+    background-color: #e53e3e;        /* Kırmızı arkaplan */
+    color: white;                     /* Beyaz yazı */
+}
+
+/* PROJE AÇIKLAMALARI */
+.project-instructions {
+    background-color: white;          /* Beyaz arkaplan */
+    padding: 30px;                    /* İçeriden 30px boşluk */
+    border-radius: var(--border-radius); /* 10px köşe yuvarlaklığı */
+    box-shadow: var(--shadow-md);     /* Orta gölge */
+    margin-top: 30px;                 /* Üstünden 30px boşluk */
+}
+
+.steps-list {
+    list-style-type: decimal;         /* Rakamlı liste */
+    padding-left: 20px;               /* Soldan 20px boşluk */
+    margin-top: 20px;                 /* Üstünden 20px boşluk */
+}
+
+.steps-list li {
+    margin-bottom: 15px;              /* Her madde arası 15px */
+    padding-left: 10px;               /* Soldan 10px boşluk */
+    color: var(--text-color);         /* Yazı rengi */
+}
+
+.steps-list strong {
+    color: var(--primary-color);      /* Kalın yazılar mavi */
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.site-footer {
+    background-color: var(--dark-color); /* Çok koyu gri arkaplan */
+    color: white;                     /* Beyaz yazı */
+    padding: 60px 0 30px;             /* Üst:60px, Alt:30px, Yan:0 */
+}
+
+.footer-content {
+    display: grid;                    /* Grid layout */
+    grid-template-columns: 1fr 1fr 1fr; /* Üç eşit kolon */
+    gap: 50px;                        /* Kolonlar arası 50px */
+    margin-bottom: 50px;              /* Altından 50px boşluk */
+}
+
+.footer-logo {
+    display: flex;                    /* Flex container */
+    align-items: center;              /* Dikeyde ortala */
+    gap: 15px;                        /* Icon ile yazı arası */
+    margin-bottom: 20px;              /* Altından 20px boşluk */
+}
+
+.footer-logo i {
+    font-size: 2rem;                  /* Büyük icon */
+    color: var(--accent-color);       /* Yeşil renk */
+}
+
+.footer-logo h3 {
+    font-size: 1.5rem;                /* 1.5rem (24px) */
+}
+
+.footer-logo span {
+    color: var(--accent-color);       /* Yeşil renk */
+    font-weight: 300;                 /* İnce yazı */
+}
+
+.footer-description {
+    color: #a0aec0;                   /* Açık gri yazı */
+    line-height: 1.7;                 /* Satır yüksekliği */
+    max-width: 300px;                 /* Maksimum 300px genişlik */
+}
+
+.footer-links h4,
+.footer-contact h4 {
+    color: white;                     /* Beyaz yazı */
+    margin-bottom: 25px;              /* Altından 25px boşluk */
+    font-size: 1.1rem;                /* 1.1rem (17.6px) */
+}
+
+.footer-links ul {
+    list-style: none;                 • Noktaları kaldır */
+}
+
+.footer-links li {
+    margin-bottom: 12px;              /* Her link arası 12px */
+}
+
+.footer-links a {
+    color: #a0aec0;                   /* Açık gri yazı */
+    text-decoration: none;            /* Alt çizgi yok */
+    transition: color var(--transition-fast); /* Renk değişimi 0.2s */
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);       /* Hover olunca yeşil */
+}
+
+.contact-info p {
+    margin-bottom: 15px;              /* Her paragraf arası 15px */
+    color: #a0aec0;                   /* Açık gri yazı */
+    display: flex;                    /* Flex container */
+    align-items: center;              /* Dikeyde ortala */
+    gap: 10px;                        /* Icon ile yazı arası */
+}
+
+.social-links {
+    display: flex;                    /* Flex container */
+    gap: 15px;                        /* Icon'lar arası 15px */
+    margin-top: 20px;                 /* Üstünden 20px boşluk */
+}
+
+.social-link {
+    display: inline-flex;             /* Inline flex container */
+    align-items: center;              /* Dikeyde ortala */
+    justify-content: center;          /* Yatayda ortala */
+    width: 40px;                      /* 40px genişlik */
+    height: 40px;                     /* 40px yükseklik */
+    background-color: rgba(255, 255, 255, 0.1); /* %10 opacity beyaz */
+    color: white;                     /* Beyaz icon */
+    border-radius: 50%;               /* Yuvarlak */
+    font-size: 1.2rem;                /* Icon boyutu */
+    transition: all var(--transition-fast); /* Hızlı geçiş */
+}
+
+.social-link:hover {
+    background-color: var(--accent-color); /* Yeşil arkaplan */
+    transform: translateY(-3px);      /* 3px yukarı kaydır */
+}
+
+.footer-bottom {
+    text-align: center;               /* Ortala */
+    padding-top: 30px;                /* Üstten içeriden 30px */
+    border-top: 1px solid #2d3748;    /* Üstte çizgi */
+    color: #a0aec0;                   /* Açık gri yazı */
+    font-size: 0.9rem;                /* Küçük yazı */
+}
+
+.footer-bottom p {
+    margin-bottom: 10px;              /* Paragraflar arası 10px */
+}
+
+/* ============================================
+   RESPONSIVE TASARIM - MOBİL UYUMLULUK
+   ============================================ */
+@media (max-width: 992px) {
+    /*
+    EĞİTMEN: "MEDIA QUERY - Tablet boyutları için (992px ve altı)
+    Bu kurallar sadece ekran genişliği 992px'den küçükse çalışır."
+    */
+    
+    .hero .container {
+        grid-template-columns: 1fr;   /* Tek kolon */
+        text-align: center;           /* Ortala */
+    }
+    
+    .lesson-content {
+        grid-template-columns: 1fr;   /* Tek kolon */
+    }
+    
+    .practice-area {
+        grid-template-columns: 1fr;   /* Tek kolon */
+    }
+    
+    .css-demo {
+        grid-template-columns: 1fr;   /* Tek kolon */
+    }
+    
+    .project-content {
+        grid-template-columns: 1fr;   /* Tek kolon */
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr 1fr; /* İki kolon */
+    }
+}
+
+@media (max-width: 768px) {
+    /*
+    EĞİTMEN: "MEDIA QUERY - Mobil boyutları için (768px ve altı)"
+    */
+    
+    .hero-title {
+        font-size: 2.2rem;            /* Daha küçük başlık */
+    }
+    
+    .section-title {
+        font-size: 2rem;              /* Daha küçük başlık */
+        flex-direction: column;       /* Icon ve yazıyı dikey sırala */
+        gap: 10px;                    /* Daha az boşluk */
+    }
+    
+    .main-nav {
+        position: fixed;              /* Sabit pozisyon */
+        top: var(--header-height);    /* Header'ın altından başla */
+        left: 0;                      /* Soldan başla */
+        right: 0;                     /* Sağa kadar */
+        background-color: white;      /* Beyaz arkaplan */
+        box-shadow: var(--shadow-lg); /* Büyük gölge */
+        padding: 20px;                /* İçeriden 20px boşluk */
+        transform: translateY(-100%); /* Başlangıçta yukarıda gizli */
+        opacity: 0;                   /* Görünmez */
+        visibility: hidden;           /* Görünmez */
+        transition: all var(--transition-normal); /* Geçiş efekti */
+        z-index: 999;                 /* Diğer elementlerin üstünde */
+    }
+    
+    .main-nav.active {
+        transform: translateY(0);     /* Aşağı in (görünür) */
+        opacity: 1;                   /* Görünür */
+        visibility: visible;          /* Görünür */
+    }
+    
+    .main-nav ul {
+        flex-direction: column;       /* Dikey sırala */
+        gap: 20px;                    /* Elemanlar arası 20px */
+    }
+    
+    .mobile-menu-btn {
+        display: block;               /* Mobilde göster */
+    }
+    
+    .hero-buttons {
+        justify-content: center;      /* Butonları ortala */
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;   /* Tek kolon */
+        text-align: center;           /* Ortala */
+    }
+    
+    .footer-logo {
+        justify-content: center;      /* Logoyu ortala */
+    }
+    
+    .footer-description {
+        max-width: 100%;              /* %100 genişlik */
+        margin: 0 auto;               /* Ortala */
+    }
+    
+    .social-links {
+        justify-content: center;      /* Social icon'ları ortala */
+    }
+}
+
+@media (max-width: 480px) {
+    /*
+    EĞİTMEN: "MEDIA QUERY - Küçük mobil boyutları için (480px ve altı)"
+    */
+    
+    .container {
+        padding: 0 15px;              /* Daha az yan boşluk */
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;            /* Daha küçük başlık */
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;            /* Daha küçük alt başlık */
+    }
+    
+    .btn {
+        padding: 12px 20px;           /* Daha az iç boşluk */
+        font-size: 0.9rem;            /* Daha küçük yazı */
+    }
+    
+    .section-title {
+        font-size: 1.7rem;            /* Daha küçük başlık */
+    }
+    
+    .code-block {
+        font-size: 0.8rem;            /* Daha küçük kod yazısı */
+        padding: 15px;                /* Daha az iç boşluk */
+    }
+}
+
+/* ============================================
+   UTILITY CLASSES - Yardımcı sınıflar
+   ============================================ */
+.text-center {
+    text-align: center;               /* Ortala */
+}
+
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+.mt-40 { margin-top: 40px; }
+.mb-40 { margin-bottom: 40px; }
+
+.hidden {
+    display: none !important;         /* Gizle (!important: diğer stilleri ezer) */
+}
+
+/* ============================================
+   ANIMASYONLAR
+   ============================================ */
+@keyframes fadeIn {
+    /*
+    EĞİTMEN: "KEYFRAMES NEDİR?: CSS animasyonu tanımlamak için.
+    from: başlangıç durumu
+    to: bitiş durumu"
+    */
+    from {
+        opacity: 0;                   /* Başlangıçta görünmez */
+        transform: translateY(20px);  /* 20px aşağıda */
+    }
+    to {
+        opacity: 1;                   /* Bitişte görünür */
+        transform: translateY(0);     /* Normal pozisyonda */
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease;      /* fadeIn animasyonunu 0.6s'de uygula */
+}
+
+/* ============================================
+   SCROLLBAR STİLİ
+   ============================================ */
+::-webkit-scrollbar {
+    width: 10px;                      /* Scrollbar genişliği */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;              /* Scrollbar yolu rengi */
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color); /* Scrollbar tutacağı rengi */
+    border-radius: 5px;               /* Köşeleri yuvarla */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);  /* Hover olunca koyu mavi */
+}

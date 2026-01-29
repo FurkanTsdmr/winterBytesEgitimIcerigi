@@ -1,0 +1,736 @@
+<!doctype html>
+<!-- 
+EĞİTMEN: "Bu satır HTML5 olduğunu tarayıcıya söyler. 
+HER HTML DOSYASININ İLK SATIRI OLMALI."
+-->
+<html lang="tr">
+  <!--
+EĞİTMEN: "html tag'i TÜM HTML içeriğini sarar.
+lang='tr' sayfanın Türkçe olduğunu söyler. 
+SEO ve erişilebilirlik için önemli."
+-->
+
+  <head>
+    <!--
+    EĞİTMEN: "head bölümü sayfa HAKKINDA BİLGİ verir.
+    Kullanıcı buradaki içeriği GÖRMEZ ama tarayıcı görür."
+    -->
+
+    <meta charset="UTF-8" />
+    <!--
+    BU NE İŞE YARAR?: Türkçe karakterleri doğru gösterir (ç,ğ,ı,ö,ş,ü).
+    UTF-8 olmazsa karakterler bozuk çıkar.
+    PRATİK: Deneyin -> charset="ISO-8859-1" yapın, Türkçe karakterler bozulur.
+    -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+    BU NE İŞE YARAR?: Mobil cihazlarda sayfanın düzgün görünmesini sağlar.
+    width=device-width: "Cihazın genişliği kadar genişlik kullan"
+    initial-scale=1.0: "Yakınlaştırma seviyesi %100 olsun"
+    MOBİL OLMASAYDI?: Telefonda sayfa küçük görünür, yana kaydırma gerekirdi.
+    -->
+
+    <title>Frontend Workshop | Sıfırdan Web Geliştirme</title>
+    <!--
+    BU NE İŞE YARAR?: Browser sekmesinde görünen başlık.
+    Ayrıca Google aramalarında da bu başlık çıkar.
+    PRATİK: Farklı bir şey yazın ve sekmede değiştiğini görün.
+    -->
+
+    <!-- EXTERNAL CSS DOSYASINI BAĞLIYORUZ -->
+    <link rel="stylesheet" href="style.css" />
+    <!--
+    BU NE İŞE YARAR?: style.css dosyasındaki tüm CSS kodlarını bu HTML'ye uygular.
+    rel="stylesheet": "Bu bir stil sayfasıdır"
+    href="style.css": "style.css dosyasını yükle"
+    NEDEN EXTERNAL?: 
+    1. Kod düzeni için (HTML ayrı, CSS ayrı)
+    2. Aynı CSS'yi birden fazla HTML'de kullanabiliriz
+    3. Bakımı kolay (CSS'yi değiştirince tüm sayfalar değişir)
+    -->
+
+    <!-- FONT AWESOME ICON KÜTÜPHANESİ -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!--
+    BU NE İŞE YARAR?: Hazır icon'lar kullanmamızı sağlar.
+    CDN (Content Delivery Network) üzerinden yüklenir.
+    PRATİK: <i class="fas fa-home"></i> yazınca ev icon'u çıkar.
+    NEDEN CDN?: Hızlı yüklenir, cache'lenir, güncel kalır.
+    -->
+
+    <!-- GOOGLE FONTS -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!--
+    BU NE İŞE YARAR?: Özel fontlar kullanmamızı sağlar.
+    Poppins fontunu 4 farklı kalınlıkta (weight) yüklüyoruz.
+    display=swap: Font yüklenene kadar sistem fontunu göster, sonra değiştir.
+    ALTERNATİF: Sistem fontları kullan (daha hızlı):
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -->
+  </head>
+
+  <body>
+    <!--
+    EĞİTMEN: "body tag'i kullanıcının GÖRDÜĞÜ her şeyi içerir.
+    Burası web sayfamızın GÖRÜNEN kısmıdır."
+    -->
+
+    <!-- HEADER BÖLÜMÜ - Sayfanın en üst kısmı -->
+    <header class="site-header">
+      <!--
+        EĞİTMEN: "header semantik HTML tag'idir. 
+        Sayfanın üst kısmındaki içerik için kullanılır.
+        class='site-header': Bu header'a CSS'den ulaşmak için isim verdik."
+        -->
+
+      <div class="container">
+        <!--
+            EĞİTMEN: "container div'i içeriği ortalamak ve maksimum genişlik vermek için.
+            NEDEN DIV?: Gruplama yapmak için. CSS'de .container diyerek tüm container'ları kontrol ederiz."
+            -->
+
+        <div class="logo">
+          <!-- LOGO ALANI -->
+          <i class="fas fa-code"></i>
+          <!-- FONT AWESOME ICON -->
+          <h1>Frontend<span>Workshop</span></h1>
+        </div>
+
+        <nav class="main-nav">
+          <!--
+                EĞİTMEN: "nav semantik HTML tag'idir.
+                Navigasyon (menü) için kullanılır.
+                class='main-nav': Ana navigasyon olduğunu belirtiyoruz."
+                -->
+          <ul>
+            <!--
+                    EĞİTMEN: "ul (unordered list) sırasız liste.
+                    li (list item) liste elemanı.
+                    Menüler genelde ul>li yapısında olur."
+                    -->
+            <li><a href="#html-section" class="nav-link">HTML</a></li>
+            <!--
+                    EĞİTMEN: "a (anchor) tag'i link oluşturur.
+                    href='#html-section': Sayfa içi link (anchor link)
+                    Bu linke tıklayınca #html-section id'li elemente kayar.
+                    class='nav-link': CSS için class verdik."
+                    -->
+            <li><a href="#css-section" class="nav-link">CSS</a></li>
+            <li><a href="#js-section" class="nav-link">JavaScript</a></li>
+            <li><a href="#project-section" class="nav-link">Proje</a></li>
+          </ul>
+        </nav>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <!--
+                EĞİTMEN: "button tag'i tıklanabilir buton yapar.
+                id='mobileMenuBtn': JavaScript'ten bu butona ulaşmak için ID verdik.
+                Mobilde menüyü açıp kapamak için kullanacağız."
+                -->
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- HERO BÖLÜMÜ - Ana tanıtım alanı -->
+    <section class="hero">
+      <!--
+        EĞİTMEN: "section semantik HTML tag'idir.
+        İçerik bölümleri oluşturmak için kullanılır.
+        Bu bölüm sayfanın ana tanıtım alanı."
+        -->
+      <div class="container">
+        <div class="hero-content">
+          <h2 class="hero-title">HTML, CSS & JavaScript Workshop</h2>
+          <p class="hero-subtitle">Sıfırdan ileri seviyeye kadar öğrenin</p>
+          <p class="hero-description">
+            25 yıllık eğitmen deneyimiyle, her satırı açıklayarak, hiçbir şeyi
+            atlamadan öğrenin.
+          </p>
+
+          <div class="hero-buttons">
+            <button class="btn btn-primary" id="startLearningBtn">
+              <i class="fas fa-play-circle"></i> Öğrenmeye Başla
+            </button>
+            <button class="btn btn-secondary" id="viewProjectsBtn">
+              <i class="fas fa-code"></i> Projeleri Gör
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-image">
+          <!--
+                EĞİTMEN: "img tag'i resim ekler.
+                src='https://via.placeholder.com/...': Geçici resim URL'si
+                alt='Frontend Development': Alternatif yazı (SEO ve erişilebilirlik için)
+                width='600' height='400': Resim boyutları"
+                -->
+          <img
+            src="https://via.placeholder.com/600x400/667eea/ffffff?text=HTML+CSS+JS"
+            alt="Frontend Development"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- HTML BÖLÜMÜ -->
+    <section class="lesson-section" id="html-section">
+      <!--
+        EĞİTMEN: "id='html-section': Bu bölüme benzersiz ID verdik.
+        Navigasyondaki linkler bu ID'ye bağlı: href='#html-section'"
+        -->
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title"><i class="fab fa-html5"></i> HTML Dersi</h2>
+          <p class="section-subtitle">Web'in İskeletini Öğrenin</p>
+        </div>
+
+        <div class="lesson-content">
+          <div class="theory-box">
+            <h3>HTML Nedir?</h3>
+            <p>
+              HTML (HyperText Markup Language), web sayfalarının iskeletini
+              oluşturan dildir.
+            </p>
+            <ul>
+              <li>
+                <strong>Tag'ler:</strong> &lt;açılış&gt; içerik &lt;/kapanış&gt;
+              </li>
+              <li>
+                <strong>Attribute'lar:</strong> Tag'lere ek özellik: &lt;tag
+                özellik="değer"&gt;
+              </li>
+              <li>
+                <strong>Semantik HTML:</strong> Anlamlı tag'ler kullan (header,
+                nav, section)
+              </li>
+            </ul>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-language">HTML</span>
+              <button class="copy-code-btn" data-target="html-example">
+                <i class="far fa-copy"></i> Kopyala
+              </button>
+            </div>
+            <pre
+              id="html-example"
+              class="code-block"
+            ><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Benim Sayfam&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Merhaba Dünya!&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;a href="#anasayfa"&gt;Ana Sayfa&lt;/a&gt;
+            &lt;a href="#hakkimda"&gt;Hakkımda&lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    
+    &lt;main&gt;
+        &lt;section id="anasayfa"&gt;
+            &lt;h2&gt;Hoş Geldiniz&lt;/h2&gt;
+            &lt;p&gt;Bu benim ilk web sayfam.&lt;/p&gt;
+            &lt;img src="resim.jpg" alt="Açıklama"&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    
+    &lt;footer&gt;
+        &lt;p&gt;© 2024 Benim Şirketim&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+
+          <div class="practice-box">
+            <h3><i class="fas fa-flask"></i> Kendin Dene</h3>
+            <div class="practice-area">
+              <div class="html-editor">
+                <h4>HTML Girin:</h4>
+                <textarea
+                  id="html-input"
+                  class="code-input"
+                  placeholder="HTML kodunuzu buraya yazın..."
+                >
+&lt;h1&gt;Deneme Başlık&lt;/h1&gt;
+&lt;p&gt;Bu bir paragraf.&lt;/p&gt;
+&lt;button&gt;Tıkla Bana&lt;/button&gt;</textarea
+                >
+              </div>
+
+              <div class="html-preview">
+                <h4>Sonuç:</h4>
+                <div id="html-output" class="preview-output">
+                  <!-- JavaScript ile dolacak -->
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-run" id="runHtmlBtn">
+              <i class="fas fa-play"></i> Çalıştır
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CSS BÖLÜMÜ -->
+    <section class="lesson-section" id="css-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fab fa-css3-alt"></i> CSS Dersi
+          </h2>
+          <p class="section-subtitle">Web'e Stil Verin</p>
+        </div>
+
+        <div class="lesson-content">
+          <div class="theory-box">
+            <h3>CSS Nedir?</h3>
+            <p>CSS (Cascading Style Sheets), HTML'e stil veren dildir.</p>
+            <ul>
+              <li><strong>Selector'lar:</strong> Hangi elementi seçeceğiz?</li>
+              <li>
+                <strong>Property-Value:</strong> Hangi özelliği ne değere
+                çevireceğiz?
+              </li>
+              <li>
+                <strong>Box Model:</strong> Content, Padding, Border, Margin
+              </li>
+              <li><strong>Flexbox & Grid:</strong> Modern layout sistemleri</li>
+            </ul>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-language">CSS</span>
+              <button class="copy-code-btn" data-target="css-example">
+                <i class="far fa-copy"></i> Kopyala
+              </button>
+            </div>
+            <pre
+              id="css-example"
+              class="code-block"
+            ><code>/* CSS Reset - Tüm elementleri sıfırla */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body stilleri */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Container - İçeriği ortala ve sınırla */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Buton stilleri */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Flexbox örneği */
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Media Query - Mobil uyumluluk */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .flex-container {
+        flex-direction: column;
+    }
+}</code></pre>
+          </div>
+
+          <div class="practice-box">
+            <h3><i class="fas fa-paint-brush"></i> CSS Denemeleri</h3>
+            <div class="css-demo">
+              <div class="demo-box" id="cssDemoBox">
+                <p>Bu kutuya CSS uygulayın</p>
+              </div>
+
+              <div class="css-controls">
+                <div class="control-group">
+                  <label for="bgColor">Arkaplan Rengi:</label>
+                  <input type="color" id="bgColor" value="#667eea" />
+                </div>
+
+                <div class="control-group">
+                  <label for="paddingSize">Padding:</label>
+                  <input
+                    type="range"
+                    id="paddingSize"
+                    min="0"
+                    max="50"
+                    value="20"
+                  />
+                  <span id="paddingValue">20px</span>
+                </div>
+
+                <div class="control-group">
+                  <label for="borderRadius">Köşe Yuvarlaklığı:</label>
+                  <input
+                    type="range"
+                    id="borderRadius"
+                    min="0"
+                    max="50"
+                    value="10"
+                  />
+                  <span id="borderRadiusValue">10px</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-reset" id="resetCssBtn">
+              <i class="fas fa-undo"></i> Sıfırla
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JAVASCRIPT BÖLÜMÜ -->
+    <section class="lesson-section" id="js-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fab fa-js-square"></i> JavaScript Dersi
+          </h2>
+          <p class="section-subtitle">Web'i Interaktif Yapın</p>
+        </div>
+
+        <div class="lesson-content">
+          <div class="theory-box">
+            <h3>JavaScript Nedir?</h3>
+            <p>
+              JavaScript, web sayfalarını interaktif yapan programlama dilidir.
+            </p>
+            <ul>
+              <li>
+                <strong>Değişkenler:</strong> let (değişebilir), const (sabit)
+              </li>
+              <li>
+                <strong>Fonksiyonlar:</strong> Tekrar kullanılabilir kod
+                blokları
+              </li>
+              <li>
+                <strong>DOM Manipülasyonu:</strong> HTML elementlerini
+                değiştirme
+              </li>
+              <li>
+                <strong>Event'ler:</strong> click, hover, input gibi kullanıcı
+                hareketleri
+              </li>
+            </ul>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-language">JavaScript</span>
+              <button class="copy-code-btn" data-target="js-example">
+                <i class="far fa-copy"></i> Kopyala
+              </button>
+            </div>
+            <pre
+              id="js-example"
+              class="code-block"
+            ><code>// 1. DEĞİŞKENLER - Veri saklamak için
+let kullaniciAdi = "Ahmet";  // Değiştirilebilir
+const PI = 3.14;            // Sabit (değiştirilemez)
+var eskiYontem = "Kullanma"; // ESKI - artık kullanma
+
+// 2. VERİ TİPLERİ
+let metin = "Merhaba";      // String
+let sayi = 42;              // Number
+let mantik = true;          // Boolean
+let liste = ["Elma", "Armut", "Muz"]; // Array
+let kisi = {                // Object
+    ad: "Ali",
+    yas: 30,
+    sehir: "İstanbul"
+};
+
+// 3. FONKSİYONLAR
+function selamVer(isim) {
+    return "Merhaba " + isim + "!";
+}
+
+// 4. ARROW FUNCTION (Modern)
+const topla = (a, b) => {
+    return a + b;
+};
+
+// 5. DOM MANİPÜLASYONU
+// Element seçme
+const baslik = document.getElementById("baslik");
+const buton = document.querySelector(".btn-primary");
+
+// Element değiştirme
+baslik.textContent = "Yeni Başlık";
+baslik.style.color = "red";
+
+// Event listener ekleme
+buton.addEventListener("click", function() {
+    alert("Butona tıklandı!");
+    baslik.style.transform = "scale(1.1)";
+});
+
+// 6. KONSOL KULLANIMI (Debug)
+console.log("Merhaba konsol!");
+console.log("Kullanıcı adı:", kullaniciAdi);
+console.table(liste);</code></pre>
+          </div>
+
+          <div class="practice-box">
+            <h3><i class="fas fa-gamepad"></i> JavaScript Oyunu</h3>
+            <div class="js-game">
+              <div class="game-info">
+                <p>Sayı Tahmin Oyunu: 1-100 arası bir sayı tuttum.</p>
+                <p id="gameMessage">İlk tahminini yap!</p>
+                <p>Kalan Hak: <span id="remainingAttempts">10</span></p>
+              </div>
+
+              <div class="game-controls">
+                <input
+                  type="number"
+                  id="guessInput"
+                  min="1"
+                  max="100"
+                  placeholder="1-100 arası sayı"
+                />
+                <button class="btn btn-guess" id="guessBtn">Tahmin Et</button>
+                <button class="btn btn-new-game" id="newGameBtn">
+                  Yeni Oyun
+                </button>
+              </div>
+
+              <div class="game-history">
+                <h4>Tahmin Geçmişi:</h4>
+                <div id="guessHistory"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJE BÖLÜMÜ -->
+    <section class="lesson-section" id="project-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fas fa-project-diagram"></i> Bitirme Projesi
+          </h2>
+          <p class="section-subtitle">HTML + CSS + JavaScript Bir Arada</p>
+        </div>
+
+        <div class="project-container">
+          <div class="project-description">
+            <h3>Interaktif Alışveriş Sepeti</h3>
+            <p>
+              Tüm öğrendiklerimizi birleştirerek çalışan bir alışveriş sepeti
+              yapacağız.
+            </p>
+
+            <div class="features-list">
+              <div class="feature">
+                <i class="fas fa-check-circle"></i>
+                <span>HTML: Ürün kartları, sepet yapısı</span>
+              </div>
+              <div class="feature">
+                <i class="fas fa-check-circle"></i>
+                <span>CSS: Grid layout, animasyonlar, responsive</span>
+              </div>
+              <div class="feature">
+                <i class="fas fa-check-circle"></i>
+                <span>JavaScript: Sepet mantığı, event handling</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- GERÇEK PROJE UYGULAMASI -->
+          <div class="live-project">
+            <div class="project-header">
+              <h3><i class="fas fa-shopping-cart"></i> TechShop</h3>
+              <div class="cart-info">
+                <span id="cartCount">0 ürün</span>
+                <span id="cartTotal">0.00₺</span>
+              </div>
+            </div>
+
+            <div class="project-content">
+              <!-- Ürünler bölümü -->
+              <div class="products-section">
+                <h4>Ürünler</h4>
+                <div class="products-grid" id="productsGrid">
+                  <!-- JavaScript ile dolacak -->
+                </div>
+              </div>
+
+              <!-- Sepet bölümü -->
+              <div class="cart-section">
+                <h4>Sepetim</h4>
+                <div class="cart-items" id="cartItems">
+                  <div class="empty-cart">
+                    <i class="fas fa-shopping-basket"></i>
+                    <p>Sepetiniz boş</p>
+                  </div>
+                </div>
+
+                <div class="cart-summary">
+                  <div class="summary-row">
+                    <span>Ara Toplam:</span>
+                    <span id="subtotal">0.00₺</span>
+                  </div>
+                  <div class="summary-row">
+                    <span>KDV (%18):</span>
+                    <span id="tax">0.00₺</span>
+                  </div>
+                  <div class="summary-row total">
+                    <span>Toplam:</span>
+                    <span id="total">0.00₺</span>
+                  </div>
+
+                  <button class="btn btn-checkout" id="checkoutBtn" disabled>
+                    <i class="fas fa-lock"></i> Ödeme Yap
+                  </button>
+                  <button class="btn btn-clear" id="clearCartBtn" disabled>
+                    <i class="fas fa-trash"></i> Sepeti Temizle
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-instructions">
+          <h4>
+            <i class="fas fa-graduation-cap"></i> Projeyi Adım Adım Yapalım:
+          </h4>
+          <ol class="steps-list">
+            <li>
+              <strong>HTML yapısını kur</strong> - Ürünler ve sepet bölümleri
+            </li>
+            <li><strong>CSS ile stil ver</strong> - Grid, butonlar, kartlar</li>
+            <li>
+              <strong>JavaScript ile ürünleri yükle</strong> - Array'den
+              ürünleri getir
+            </li>
+            <li>
+              <strong>Sepet fonksiyonlarını yaz</strong> - Ekle, çıkar, güncelle
+            </li>
+            <li>
+              <strong>Event listener'ları ekle</strong> - Buton tıklamalarını
+              dinle
+            </li>
+            <li>
+              <strong>LocalStorage ekle (opsiyonel)</strong> - Sepeti kaydet
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-info">
+            <div class="footer-logo">
+              <i class="fas fa-code"></i>
+              <h3>Frontend<span>Workshop</span></h3>
+            </div>
+            <p class="footer-description">
+              25 yıllık eğitmen deneyimiyle sıfırdan web geliştirme öğrenin.
+            </p>
+          </div>
+
+          <div class="footer-links">
+            <h4>Hızlı Linkler</h4>
+            <ul>
+              <li><a href="#html-section">HTML Dersi</a></li>
+              <li><a href="#css-section">CSS Dersi</a></li>
+              <li><a href="#js-section">JavaScript Dersi</a></li>
+              <li><a href="#project-section">Bitirme Projesi</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-contact">
+            <h4>İletişim</h4>
+            <div class="contact-info">
+              <p><i class="fas fa-envelope"></i> info@frontendworkshop.com</p>
+              <p><i class="fas fa-phone"></i> (0212) 123 45 67</p>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+              <a href="#" class="social-link"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2024 Frontend Workshop. Tüm hakları saklıdır.</p>
+          <p>Bu proje eğitim amaçlı hazırlanmıştır.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- EXTERNAL JAVASCRIPT DOSYASINI BAĞLIYORUZ -->
+    <script src="script.js"></script>
+    <!--
+    EĞİTMEN: "script.js dosyasındaki tüm JavaScript kodlarını yüklüyoruz.
+    NEDEN EN SONDA?: Sayfa tamamen yüklendikten sonra JavaScript çalışsın diye.
+    Eğer head'de yüklersek, HTML henüz yüklenmeden JavaScript çalışmaya çalışır ve hata alırız."
+    -->
+  </body>
+</html>
